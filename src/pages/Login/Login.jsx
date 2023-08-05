@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Typography, Button, Form, Input, Divider } from 'antd'
 import { useMutation } from 'react-query'
-import AuthApi from '../../apis/auth.api'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { AppContext } from '../../contexts/app.context'
+import AuthApi from '../../apis/auth.api'
 
 const { Title, Text } = Typography
 
