@@ -9,6 +9,7 @@ import EventApi from '../../apis/event.api'
 import { useNavigate, useParams } from 'react-router-dom'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
+import { BACKEND_URL } from '../../config/backend'
 
 const dateFormat = 'YYYY-MM-DD'
 
@@ -216,13 +217,13 @@ const CreateEvent = () => {
             listType='picture-card'
             className='avatar-uploader'
             showUploadList={false}
-            action='http://localhost:3000/upload/image'
+            action={`${BACKEND_URL}/upload/image`}
             beforeUpload={beforeUpload}
             onChange={handleChange}
           >
             {imageUrl || image ? (
               <img
-                src={imageUrl ? imageUrl : `http://localhost:3000/image/${image}`}
+                src={imageUrl ? imageUrl : `${BACKEND_URL}/image/${image}`}
                 alt='avatar'
                 style={{
                   width: '100%'

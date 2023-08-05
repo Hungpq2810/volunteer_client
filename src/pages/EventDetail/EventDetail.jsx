@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import EventApi from '../../apis/event.api'
 import dayjs from 'dayjs'
 import { AppContext } from '../../contexts/app.context'
+import { BACKEND_URL } from '../../config/backend'
 
 const { Title } = Typography
 
@@ -38,7 +39,7 @@ const EventDetail = () => {
       <Title level={1}>{event.name}</Title>
       <Row gutter={32}>
         <Col className='image-main' span={16}>
-          <Image style={{width: '100%'}} src={`http://localhost:3000/image/${event.image}`} />
+          <Image style={{width: '100%'}} src={`${BACKEND_URL}/image/${event.image}`} />
         </Col>
         <Col span={8}>
           <Card>

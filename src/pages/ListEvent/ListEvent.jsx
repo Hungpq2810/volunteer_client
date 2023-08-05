@@ -7,6 +7,7 @@ import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import useQueryConfig from '../../hooks/useQueryConfig'
 import omitBy from 'lodash/omitBy'
 import isUndefined from 'lodash/isUndefined'
+import { BACKEND_URL } from '../../config/backend'
 
 const disabledDate = (current) => {
   // Can not select days before today and today
@@ -138,7 +139,7 @@ const ListEvent = () => {
                     <img
                       style={{ width: '100%', height: 300, objectFit: 'cover' }}
                       alt='example'
-                      src={`http://localhost:3000/image/${event.image}`}
+                      src={`${BACKEND_URL}/image/${event.image}`}
                     />
                   }
                 >

@@ -1,13 +1,14 @@
 import axios from 'axios'
 import Auth from './auth'
 import { message } from 'antd'
+import { BACKEND_URL } from '../config/backend'
 
 class Http {
   constructor() {
     this.accessToken = Auth.getTokenFromLs().access_token
     this.refreshToken = Auth.getTokenFromLs().refresh_token
     this.instance = axios.create({
-      baseURL: 'http://localhost:3000/',
+      baseURL: `${BACKEND_URL}/`,
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'
@@ -26,7 +27,10 @@ class Http {
         if (url === '/auth/register' || url === '/auth/login') {
           this.accessToken = response.data?.metadata?.tokens?.accessToken
           this.refreshToken = response.data?.metadata?.tokens?.refreshToken
-          Auth.saveTokenToLs(response.data?.metadata?.tokens?.accessToken, response.data?.metadata?.tokens?.refreshToken)
+          Auth.saveTokenToLs(
+            response.data?.metadata?.tokens?.accessToken,
+            response.data?.metadata?.tokens?.refreshToken
+          )
           Auth.setProfileToLS(response.data?.metadata?.user)
           // Auth.setPermissionsToLS(response?.data?.metadata?.permissions)
         } else if (url === '/auth/logout') {

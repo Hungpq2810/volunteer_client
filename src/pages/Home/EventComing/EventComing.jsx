@@ -10,6 +10,7 @@ import { useQuery } from 'react-query'
 import EventApi from '../../../apis/event.api'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
+import { BACKEND_URL } from '../../../config/backend'
 
 const { Meta } = Card
 const { Title } = Typography
@@ -49,7 +50,7 @@ const EventComing = () => {
           events.map((event, index) => (
             <SwiperSlide key={event.id}>
               <Link to={`/${event.link}`}>
-                <Card hoverable cover={<img style={{ width: '100%', height: 300, objectFit: 'cover'}} alt='example' src={`http://localhost:3000/image/${event.image}`} />}>
+                <Card hoverable cover={<img style={{ width: '100%', height: 300, objectFit: 'cover'}} alt='example' src={`${BACKEND_URL}/image/${event.image}`} />}>
                   <Meta
                     title={event.name}
                     description={<>
