@@ -1,6 +1,6 @@
 import { Button, Col, DatePicker, Divider, Form, Input, InputNumber, Row, Select, Table, Typography, Upload, message } from 'antd'
 import React, { useContext, useEffect, useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import AuthApi from '../../apis/auth.api'
 import Auth from '../../utils/auth'
 import ReactQuill from 'react-quill'
@@ -97,6 +97,7 @@ const CreateEvent = () => {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState()
   const [eventId, setEventId] = useState(null)
+  const queryClient = useQueryClient()
 
   const createEventMutation = useMutation({
     mutationFn: (body) => EventApi.createEvent({ ...body, startDate: body.date[0], endDate: body.date[1] }),
@@ -106,9 +107,11 @@ const CreateEvent = () => {
     }
   })
   const updateEventMutation = useMutation({
-    mutationFn: (_) => EventApi.updateEvent(eventId, form.getFieldsValue()),
+    mutationFn: (_) => EventApi.updateEvent(eventId, {...form.getFieldsValue(),startDate: form.getFieldValue('date')[0], endDate: form.getFieldValue('date')[1] }),
     onSuccess: (data) => {
       message.success('Cập nhật sự kiện thành công')
+      // queryClient.invalidateQueries({ queryKey: ['event', slug] })
+      queryClient.invalidateQueries({ queryKey: ['my-events'] })
       form.resetFields()
       navigate('/my-event')
     }
