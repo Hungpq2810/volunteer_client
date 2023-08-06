@@ -54,16 +54,16 @@ const Header = ({ collapsed, setCollapsed, linkHome }) => {
         paddingRight: 30
       }}
     >
-      <Button
+      {/* <Button
         type='text'
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        onClick={() => setCollapsed(!collapsed)}
+        // onClick={() => setCollapsed(!collapsed)}
         style={{
           fontSize: '16px',
           width: 64,
           height: 64
         }}
-      />
+      /> */}
       <Space style={{ float: 'right' }}>
         <Text>{profile?.username}</Text>
         <Dropdown
