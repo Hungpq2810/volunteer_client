@@ -43,7 +43,9 @@ class Http {
       },
       function (error) {
         const msg = error.response?.data?.message
-        message.error(msg)
+        if(msg){
+          message.error(msg)
+        }
         return Promise.reject(error)
       }
     )
