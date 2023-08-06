@@ -78,6 +78,8 @@ const ListEvent = () => {
                       style={{
                         width: '100%'
                       }}
+                      allowClear
+                      
                       options={[
                         {
                           value: 'Education',
