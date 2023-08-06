@@ -24,21 +24,6 @@ const status = [
 ]
 const ManageRequest = () => {
   const [value, setValue] = useState(status[0].value)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [bookingId, setBookingId] = useState(null)
-  const [reason, setReason] = useState('')
-  const showModal = (id) => {
-    setIsModalOpen(true)
-    setBookingId(id)
-  }
-  const handleOk = () => {
-    handleCancelBooking()
-  }
-  const handleCancel = () => {
-    setIsModalOpen(false)
-    setReason('')
-    setBookingId(null)
-  }
   const { data, isLoading } = useQuery({
     queryKey: ['events', value],
     queryFn: () => {

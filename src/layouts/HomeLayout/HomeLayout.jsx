@@ -10,7 +10,8 @@ import {
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../../contexts/app.context'
-const { Header, Content, Footer } = Layout
+import Footer from '../../components/Footer/Footer'
+const { Header, Content, Footer: FooterContainer } = Layout
 const { Text } = Typography
 const HomeLayout = ({ children }) => {
   const { setIsAuthenticated, profile, setProfile, isAuthenticated } = useContext(AppContext)
@@ -104,13 +105,13 @@ const HomeLayout = ({ children }) => {
           {children}
         </div>
       </Content>
-      <Footer
+      <FooterContainer
         style={{
           textAlign: 'center'
         }}
       >
-        Volunteer ©2023 Created by Sudev
-      </Footer>
+        <Footer />
+      </FooterContainer>
     </Layout>
   )
 }

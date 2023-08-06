@@ -9,8 +9,6 @@ import { BACKEND_URL } from '../../config/backend'
 
 const { Title } = Typography
 
-
-
 const EventDetail = () => {
   const { profile } = useContext(AppContext)
   const queryClient = useQueryClient()
@@ -30,16 +28,23 @@ const EventDetail = () => {
       queryClient.invalidateQueries({ queryKey: ['event', slug] })
     }
   })
+  const cancelEventMutation = useMutation({
+    mutationFn: () => EventApi.cancel(event?.id),
+    onSuccess: (_) => {
+      message.success(`Hủy sự kiện thành công`)
+      queryClient.invalidateQueries({ queryKey: ['event', slug], exact: true })
+    }
+  })
   if (!event) {
     return <></>
   }
-
+  console.log(profile?.username === event?.creator)
   return (
     <>
       <Title level={1}>{event.name}</Title>
       <Row gutter={32}>
         <Col className='image-main' span={16}>
-          <Image style={{width: '100%'}} src={`${BACKEND_URL}/image/${event.image}`} />
+          <Image style={{ width: '100%' }} src={`${BACKEND_URL}/image/${event.image}`} />
         </Col>
         <Col span={8}>
           <Card>
@@ -75,11 +80,20 @@ const EventDetail = () => {
                     <b>Ngày kết thúc: </b>
                     {dayjs(event.endDate).format('DD-MM-YYYY')}
                   </p>
+                  {event && event?.status === 'APPROVED' && profile?.username == event?.creator && (
+                    <Button type='dashed' onClick={() => cancelEventMutation.mutate()}>
+                      Hủy
+                    </Button>
+                  )}
                   {profile?.username !== event.creator &&
                     members.findIndex((item) => item.user.id === profile?.id) === -1 && (
                       <>
-                      {!profile?.id && <Link to={'/login?url_back=du-lich-tinh-nguyen-ban-coi-phu-tho'} ><Button>Đăng ký</Button></Link> }
-                      {profile?.id && <Button onClick={() => joinEventMutation.mutate()}>Đăng ký</Button> }
+                        {!profile?.id && (
+                          <Link to={'/login?url_back=du-lich-tinh-nguyen-ban-coi-phu-tho'}>
+                            <Button>Đăng ký</Button>
+                          </Link>
+                        )}
+                        {profile?.id && <Button onClick={() => joinEventMutation.mutate()}>Đăng ký</Button>}
                       </>
                     )}
                 </>

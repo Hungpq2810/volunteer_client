@@ -5,7 +5,8 @@ import { Image, Layout, Menu, theme } from 'antd'
 import Header from '../../components/Header/Header'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../contexts/app.context'
-const { Sider, Content } = Layout
+import Footer from '../../components/Footer/Footer'
+const { Sider, Content, Footer: FooterContainer } = Layout
 
 const MainLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false)
@@ -123,6 +124,13 @@ const MainLayout = ({ children }) => {
         >
           {children}
         </Content>
+        <FooterContainer
+        style={{
+          textAlign: 'center'
+        }}
+      >
+        <Footer />
+      </FooterContainer>
       </Layout>
     </Layout>
   )

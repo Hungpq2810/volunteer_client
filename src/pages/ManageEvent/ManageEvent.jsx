@@ -72,12 +72,14 @@ const ManageEvent = () => {
     }
     cancelBookingMutation.mutate(bookingId)
   }
-  const handleAcceptBooking = (id) => {
-    acceptBookingMutation.mutate(id)
-  }
-  const handleAcceptPayment = (id) => {
-    acceptPaymentMutation.mutate(id)
-  }
+
+  const cancelEventMutation = useMutation({
+    mutationFn: (id) => EventApi.cancel(id),
+    onSuccess: (_) => {
+      message.success(`Hủy sự kiện thành công`)
+      queryClient.invalidateQueries({ queryKey: ['my-events', value], exact: true })
+    }
+  })
 
   const columns = [
     {
@@ -137,6 +139,11 @@ const ManageEvent = () => {
                   {' '}
                   <Button type='primary'>Sửa</Button>
                 </Link>
+              )}
+              {data.status === 'APPROVED' && (
+                <Button onClick={() => cancelEventMutation.mutate(data.id)} type='dashed'>
+                  Hủy
+                </Button>
               )}
             </Space>
           </>
@@ -198,7 +205,9 @@ const ManageEvent = () => {
         return (
           <>
             <Space>
-              {new Date(data.event.endDate).getTime() < new Date().getTime() && <Tag color='red-inverse'>Đã kết thúc</Tag>}
+              {new Date(data.event.endDate).getTime() < new Date().getTime() && (
+                <Tag color='red-inverse'>Đã kết thúc</Tag>
+              )}
             </Space>
           </>
         )

@@ -15,6 +15,7 @@ class EventApi {
     http.get(`/event/coming`, {
       params
     })
+  static cancel = (id) => http.patch(`/event/cancel/${id}`)
 }
 
 export default EventApi
